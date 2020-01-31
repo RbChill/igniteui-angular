@@ -1,5 +1,5 @@
 ﻿import { Component, ViewChild, Type, DebugElement, NgZone } from '@angular/core';
-import { async, TestBed } from '@angular/core/testing';
+import { async, TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IgxGridModule, IgxGridCellComponent, IGridCellEventArgs } from './index';
@@ -18,9 +18,10 @@ const ROW_CSS_CLASS = '.igx-grid__tr';
 const CELL_BLOCK = '.igx-grid__mrl-block';
 
 describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
-    configureTestSuite();
+    let fix: ComponentFixture<ColumnLayoutTestComponent>;
     let zone: TestNgZone;
 
+    configureTestSuite();
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
@@ -31,8 +32,11 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
         }).compileComponents();
     }));
 
+    beforeEach(() => {
+        fix = TestBed.createComponent(ColumnLayoutTestComponent);
+    });
+
     it('should navigate through a single layout with right and left arrow keys', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.detectChanges();
 
         let firstCell;
@@ -80,7 +84,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should navigate between column layouts with right arrow key', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             columns: [
@@ -114,7 +117,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should navigate between column layouts with left key', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             columns: [
@@ -148,7 +150,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should navigate down and up to a cell from the same column layout from a cell with bigger col span', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             columns: [
@@ -180,7 +181,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should navigate down and up to a cell from the same column layout to a cell with bigger col span', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             columns: [
@@ -190,6 +190,7 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
             ]
         }];
         fix.detectChanges();
+
         let firstCell;
         let secondCell;
         let thirdCell;
@@ -212,7 +213,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should navigate down and up to a cell from the same column layout according to its starting location', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             columns: [
@@ -245,7 +245,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should allow navigating down to a cell from the next row', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             columns: [
@@ -271,7 +270,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should allow navigating down to a cell from the next row with hidden column layout', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             hidden: true,
@@ -303,7 +301,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should allow navigating down with scrolling', async() => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             columns: [
@@ -336,7 +333,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should retain the focus when the first cell is reached', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             columns: [
@@ -346,6 +342,7 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
             ]
         }];
         fix.detectChanges();
+
         let firstCell;
         let secondCell;
         let thirdCell;
@@ -362,7 +359,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should navigate up correctly', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             columns: [
@@ -371,6 +367,7 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
                 { field: 'City', rowStart: 2, colStart: 2 }
             ]
         }];
+
         fix.detectChanges();
         let firstCell;
         let secondCell;
@@ -388,7 +385,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('navigate to right and left with hidden columns', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             hidden: true,
@@ -426,7 +422,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should navigate to the last cell from the layout by pressing Home/End or Ctrl + ArrowLeft/ArrowRight key', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             hidden: true,
@@ -488,7 +483,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should navigate to the last cell from the first/last layout by pressing Ctrl + Home/End key', async() => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             hidden: true,
@@ -543,7 +537,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
 
     it(`should navigate to the last cell from the layout by pressing Home/End or Ctrl + ArrowLeft/ArrowRight key
             and keep same rowStart from the first selection when last cell spans more rows`, async() => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             hidden: true,
@@ -623,7 +616,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
 
     it(`should navigate to the last cell from the layout by pressing Ctrl + Arrow Right key
         and then Arrow Down + Up to same cell`, async() => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             hidden: true,
@@ -680,7 +672,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
 
     it(`should navigate to the last cell from the layout by pressing Ctrl + Arrow Right key
         and then Arrow Up + Down to same cell`, async() => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             hidden: true,
@@ -738,7 +729,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
 
     it(`should navigate to the first cell from the layout by pressing Ctrl + Arrow Left key
         and then Arrow Up + Down to same cell`, async() => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             hidden: true,
@@ -804,7 +794,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     it(`Tab Navigation should move through each cell from the row once,
       moving through all cells with same rowStart, following the columnStart and column layout order,
       before moving on to the next rowStart.`, () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             // row span 3
@@ -861,7 +850,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     it(`Shift+Tab Navigation should move through each cell from the row once, moving through all cells with same rowStart,
      following the columnStart and column layout setup order,
      before moving on to the previous cell with smaller rowStart.`, () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             // row span 3
@@ -908,7 +896,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
      });
 
      it('Tab/Shift+Tab Navigation should allow moving to next/prev row when at last/first cell.',  () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             // row span 3
@@ -959,7 +946,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
      });
 
      it('Tab Navigation should work in grid with horizontal virtualization.',  async() => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             // row span 3
@@ -1012,7 +998,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
      });
 
      it('Shift+Tab Navigation should work in grid with horizontal virtualization.',  async() => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             // row span 3
@@ -1070,7 +1055,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
      });
 
      it('Shift+Tab Navigation should scroll last cell fully in view.',  async () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             // row span 3
@@ -1120,7 +1104,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
      });
 
     it('should navigate using Arrow Left through bigger cell with same rowStart but bigger row span', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             columns: [
@@ -1157,7 +1140,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should navigate using Arrow Left through bigger cell with smaller rowStart and bigger rowEnd', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             columns: [
@@ -1198,7 +1180,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should navigate using Arrow Right through bigger cell with same rowStart but bigger row', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             columns: [
@@ -1235,7 +1216,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should scroll focused cell fully in view when navigating with arrow keys and row is partially visible.', async() => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [
         {
             group: 'group1',
@@ -1342,7 +1322,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should scroll focused cell fully in view when navigating with arrow keys and column is partially visible.', async() => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             columns: [
@@ -1369,7 +1348,7 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
 
         // arrow right
         HelperFunctions.simulateCellKeydown(cell, 'arrowright');
-        await wait();
+        await wait(DEBOUNCETIME);
         zone.simulateOnStable();
         fix.detectChanges();
 
@@ -1382,7 +1361,7 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
 
         // arrow left
         HelperFunctions.simulateCellKeydown(cell, 'arrowleft');
-        await wait();
+        await wait(DEBOUNCETIME);
         zone.simulateOnStable();
         fix.detectChanges();
 
@@ -1395,7 +1374,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should navigate using Arrow Right through bigger cell with smaller rowStart and bigger rowEnd', async() => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             columns: [
@@ -1436,7 +1414,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should navigate using Arrow Down through cell with same colStart but bigger colEnd', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             columns: [
@@ -1488,7 +1465,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should navigate using Arrow Down through cell with smaller colStart and bigger colEnd', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             columns: [
@@ -1541,7 +1517,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should navigate using Arrow Up through cell with smaller colStart and bigger colEnd', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             columns: [
@@ -1593,7 +1568,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should navigate correctly by pressing Ctrl + ArrowUp/ArrowDown key', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             pinned: true,
@@ -1634,7 +1608,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should navigate correctly with column group is hidden.', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             // row span 3
@@ -1706,7 +1679,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should allow navigation through group rows with arrow keys starting from group row.', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             // row span 3
@@ -1777,7 +1749,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should allow navigation through group rows with arrow keys starting from middle of grid row', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             // row span 3
@@ -1866,7 +1837,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('should allow navigation through group rows with Tab/Shift+Tab key', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             // row span 3
@@ -1951,7 +1921,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('tab navigation should follow correct sequence if a column is moved.', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             // row span 3
@@ -1996,7 +1965,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
 
     it(`should navigate to the last cell from the layout by pressing Ctrl + ArrowLeft/ArrowRight key
      in grid with horizontal virtualization`, async() => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [{
             group: 'group1',
             // row span 3
@@ -2034,7 +2002,7 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
 
         // ctrl+arrow right
         HelperFunctions.simulateCellKeydown(firstCell, 'ArrowRight', false, false, true);
-        await wait();
+        await wait(DEBOUNCETIME);
         zone.simulateOnStable();
         fix.detectChanges();
 
@@ -2047,7 +2015,7 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
 
         // ctrl+arrow left
         HelperFunctions.simulateCellKeydown(lastCell, 'ArrowLeft', false, false, true);
-        await wait();
+        await wait(DEBOUNCETIME);
         zone.simulateOnStable();
         fix.detectChanges();
 
@@ -2061,7 +2029,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
 
     describe('Pinning', () => {
         it('should navigate from pinned to unpinned area and backwards', async() => {
-            const fix = TestBed.createComponent(ColumnLayoutTestComponent);
             fix.componentInstance.colGroups = [{
                 group: 'group1',
                 pinned: true,
@@ -2101,7 +2068,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
         });
 
         it('when navigating from pinned to unpinned area cell should be fully scrolled in view.', async() => {
-            const fix = TestBed.createComponent(ColumnLayoutTestComponent);
             fix.componentInstance.colGroups = [{
                 group: 'group1',
                 // row span 3
@@ -2186,7 +2152,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
         });
 
         it('should navigate to unpinned area when the column layout is bigger than the display container', async() => {
-            const fix = TestBed.createComponent(ColumnLayoutTestComponent);
             fix.componentInstance.colGroups = [{
                 group: 'group1',
                 pinned: true,
@@ -2227,7 +2192,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
         });
 
         it('should navigate from pinned to unpinned area and backwards using Home/End', async() => {
-            const fix = TestBed.createComponent(ColumnLayoutTestComponent);
             fix.componentInstance.colGroups = [{
                 group: 'group1',
                 pinned: true,
@@ -2267,7 +2231,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
         });
 
         it('should navigate from pinned to unpinned area and backwards using Ctrl+Left/Right', async() => {
-            const fix = TestBed.createComponent(ColumnLayoutTestComponent);
             fix.componentInstance.colGroups = [{
                 group: 'group1',
                 pinned: true,
@@ -2307,7 +2270,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
         });
 
         it('tab navigation should follow correct sequence if a column is pinned runtime.', () => {
-            const fix = TestBed.createComponent(ColumnLayoutTestComponent);
             fix.componentInstance.colGroups = [{
                 group: 'group1',
                 // row span 3
@@ -2350,7 +2312,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
         });
 
         it('should navigate to the last block with one pinned group and unpinned area has scrollbar', async() => {
-            const fix = TestBed.createComponent(ColumnLayoutTestComponent);
             fix.componentInstance.colGroups = [
                 {
                     group: 'group1',
@@ -2418,7 +2379,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
         });
 
         it('should navigate left from unpinned to pinned area when pinning second block in template', () => {
-            const fix = TestBed.createComponent(ColumnLayoutTestComponent);
             fix.componentInstance.colGroups = [
                 {
                     group: 'group1',
@@ -2473,7 +2433,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
         });
 
         it('should navigate down to next row inside pinned area when pinning second block in template', () => {
-            const fix = TestBed.createComponent(ColumnLayoutTestComponent);
             fix.componentInstance.colGroups = [
                 {
                     group: 'group1',
@@ -2526,7 +2485,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
         });
 
         it('should navigate down to next row inside unpinned area when pinning second block in template', () => {
-            const fix = TestBed.createComponent(ColumnLayoutTestComponent);
             fix.componentInstance.colGroups = [
                 {
                     group: 'group1',
@@ -2581,7 +2539,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
         });
 
         it('should navigate up to next row inside pinned area when pinning second block in template', () => {
-            const fix = TestBed.createComponent(ColumnLayoutTestComponent);
             fix.componentInstance.colGroups = [
                 {
                     group: 'group1',
@@ -2635,7 +2592,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
 
 
         it('should navigate up to next row inside unpinned area when pinning second block in template', () => {
-            const fix = TestBed.createComponent(ColumnLayoutTestComponent);
             fix.componentInstance.colGroups = [
                 {
                     group: 'group1',
@@ -2690,7 +2646,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
         });
 
         it('should navigate up to next row inside unpinned area when pinning second block in template', () => {
-            const fix = TestBed.createComponent(ColumnLayoutTestComponent);
             fix.componentInstance.colGroups = [
                 {
                     group: 'group1',
@@ -2749,7 +2704,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('shift+tab navigation should go through edit row buttons when navigating in row edit mode. ', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [
             {
                 group: 'group1',
@@ -2810,7 +2764,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('tab navigation should should skip non-editable cells when navigating in row edit mode. ', () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [
             {
                 group: 'group1',
@@ -2871,7 +2824,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('Shift + tab navigation should scroll to the appropriate cell', async() => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [
             {
                 group: 'group1', pinned: true,
@@ -2920,7 +2872,6 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
     });
 
     it('navigateTo method should work in multi-row layout grid.', async () => {
-        const fix = TestBed.createComponent(ColumnLayoutTestComponent);
         fix.componentInstance.colGroups = [
             {
                 group: 'group1',
